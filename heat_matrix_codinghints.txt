@@ -14,6 +14,10 @@
     // Debug trace can be enabled for a collection with the call:
     //     CnC::debug::trace( c.position, "position" );
     
+    // For each item from the environment (ENV), put the item using the  
+    // proper tag    
+    c.matrix_value.put( matrix_value_Tag, ... );
+    
     // For each tag value from the environment (ENV), put the tag into
     // the proper tag collection
     c.position.put( position_Tag );
@@ -23,6 +27,8 @@
     
     // For each output to the environment (ENV), get the item using the 
     // proper tag    
+    float matrix_value_ENV;
+    c.matrix_value.get( pair(...), matrix_value_ENV );
 
 /*********************************************************************
 /* The following code provides an example of what the user Step code 
@@ -33,8 +39,8 @@ int compute_heat::execute(const pair & t, heat_matrix_context & c ) const
 {
      
     // For each input item for this step retrieve the item using the proper tag value
-    float matrix_value_instance;
-    c.matrix_value.get( pair(...), matrix_value_instance );
+    float matrix_value_item;
+    c.matrix_value.get( t, matrix_value_item );
 
     // Step implementation logic goes here
     ...

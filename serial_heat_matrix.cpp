@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 	dy2 = dy*dy;
 
 	CFL = probInfo.CFL;
-	deltaT = CFL*(dx2*dy2)/((dx2+dy2)*probInfo.thermalDiffusivity);
+	deltaT = CFL*(dx5*dy2)/((dx2+dy2)*probInfo.thermalDiffusivity);
 	//***********
 	
 
@@ -90,6 +90,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		/* set uOld = uNew */
+		// use TBB to parallelize this step
 		for (ix = 1; ix < (nNodesX-1); ix++) {
 			for (jy = 1; jy < (nNodesY-1) ;jy++){
 				uOld[ix][jy] = uNew[ix][jy];
