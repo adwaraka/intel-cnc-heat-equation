@@ -11,17 +11,17 @@ struct heat_matrix_context;
 
 struct compute_heat
 {
-    int execute( const pair & t, heat_matrix_context & c ) const;
+    int execute( const MatrixKey & t, heat_matrix_context & c ) const;
 };
 
 // The context class
 struct heat_matrix_context : public CnC::context< heat_matrix_context >
 {
     // Item collections
-    CnC::item_collection< pair, float > matrix_value;
+    CnC::item_collection< MatrixKey, float > matrix_value;
 
     // Tag collections
-    CnC::tag_collection< pair > position;
+    CnC::tag_collection< MatrixKey > position;
 
     // The context class constructor
 #pragma warning(push)

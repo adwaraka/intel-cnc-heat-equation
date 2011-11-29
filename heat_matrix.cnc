@@ -1,18 +1,19 @@
 //CnC for Heat Equations
 
 // Tag declarations : <tag-type tag-name>
-<pair position>;      		  // position is indexed by the x and y axis of the complex plane
+<MatrixKey position>;      		  // position is indexed by the x,y and t axis of the complex plane
 
 // Item declarations : [item-type item-name <tag-type>] 
-[float matrix_value <pair>];      // pixel is indexed by the x and y axis of the complex plane
+[float matrix_value <MatrixKey>];      // pixel is indexed by the x,y and t axis of the complex plane
+
+// Prescriptive relations
+<position>::(compute_heat);
 
 // Input from the environment and output to the environment
 env -> <position>;
 env -> [matrix_value];
 [matrix_value] -> env;
 
-// Prescriptive relations
-<position>::(compute_heat);
-
-[matrix_value: row, col] -> (compute_heat: row, col) -> [matrix_value]; 
+[matrix_value] -> (compute_heat);
+(compute_heat) -> [matrix_value]; 
 
