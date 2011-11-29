@@ -85,25 +85,22 @@ int compute_heat::execute(const MatrixKey & t, heat_matrix_context & c ) const
 	    prev_temp_val_t,
 	    prev_temp_val_b;
 
-        if (time_key <= 168)  {
+        // get the neighbouring data
+	c.matrix_value.get(MatrixKey(row,col,time_key), prev_temp_val);
+   	c.matrix_value.get(MatrixKey(row-1,col,time_key), prev_temp_val_l);
+	c.matrix_value.get(MatrixKey(row+1,col,time_key), prev_temp_val_r);
+	c.matrix_value.get(MatrixKey(row,col-1,time_key), prev_temp_val_b);
+	c.matrix_value.get(MatrixKey(row,col+1,time_key), prev_temp_val_t);
 
-		// get the neighbouring data
-		c.matrix_value.get(MatrixKey(row,col,time_key), prev_temp_val);
-    		c.matrix_value.get(MatrixKey(row-1,col,time_key), prev_temp_val_l);
-		c.matrix_value.get(MatrixKey(row+1,col,time_key), prev_temp_val_r);
-		c.matrix_value.get(MatrixKey(row,col-1,time_key), prev_temp_val_b);
-		c.matrix_value.get(MatrixKey(row,col+1,time_key), prev_temp_val_t);
+		
+	// printf("Computing for time %d\n",time_key);
 
-		time_key=time_key+1;	
+	// Step implementation logic goes here	
+	// For each output item for this step, put the new item using the proper tag value   
+	// sum all the neighbouring ones with the concerned pixel
 
-		// printf("Computing for time %d\n",time_key);
-
-		// Step implementation logic goes here	
-		// For each output item for this step, put the new item using the proper tag value   
-		// sum all the neighbouring ones with the concerned pixel
-
-		c.matrix_value.put(mat, float(prev_temp_val + 0.20*(prev_temp_val_l + prev_temp_val_r - 4*prev_temp_val + prev_temp_val_t + prev_temp_val_b)));
-	}
+	c.matrix_value.put(MatrixKey(row, col, time_key+1), 
+		float(prev_temp_val + 0.20*(prev_temp_val_l + prev_temp_val_r - 4*prev_temp_val + prev_temp_val_t + prev_temp_val_b)));
 
 	return CnC::CNC_Success;
 }
@@ -123,6 +120,7 @@ int main(int argc, char* argv[]) {
 
 	int i;
 	int j;
+	int t;
 
 	ProblemInfo probInfo;
 	double CFL;	
@@ -163,9 +161,11 @@ int main(int argc, char* argv[]) {
 
         // Initiate computation by putting tags into a tag collection:
         // for (...)
-    	for (i = 0; i < nNodesX; i++) {
-            for (j = 0; j < nNodesY; j++) {
-		c.position.put(MatrixKey(i,j,0));
+    	for (i = 1; i < nNodesX-1; i++) {
+            for (j = 1; j < nNodesY-1; j++) {
+		for(t = 0; t <= 169; t++)  {
+			c.position.put(MatrixKey(i,j,t));
+		}
 	    }
 	}
 
