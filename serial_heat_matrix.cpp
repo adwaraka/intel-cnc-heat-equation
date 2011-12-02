@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 	int ix = 0,
 		jy =0;
 
-	double endSimulationTime = 4.0, 
+	double endSimulationTime = 1.0, 
 		CFL = 0.25, 
 		deltaT,
 		dx,
@@ -82,7 +82,7 @@ int main(int argc, char* argv[]) {
 
 	int iter = 0;
 	while(iter++*deltaT <= probInfo.endSimulationTime) {
-		// printf("Iterate\n");
+	
 		/* calculate the new values of the dependant variable; 5 point stencil */
 		for (ix = 1; ix < (nNodesX-1); ix++) {
 			for (jy = 1; jy < (nNodesY-1) ;jy++){
@@ -91,13 +91,13 @@ int main(int argc, char* argv[]) {
 		}
 
 		/* set uOld = uNew */
+		// use TBB to parallelize this step
 		for (ix = 1; ix < (nNodesX-1); ix++) {
 			for (jy = 1; jy < (nNodesY-1) ;jy++){
 				uOld[ix][jy] = uNew[ix][jy];
 			}
 		}
 	}
-	printf("Iteration count: %d\n", iter);
 
 	endCPUTime = clock();
 
@@ -106,7 +106,6 @@ int main(int argc, char* argv[]) {
 
         /* compute the maximum wall time */
         printf("Time to execute %lf s\n",(double) totalCPUTime/CLOCKS_PER_SEC);
-
 
 	saveToFile(probInfo,uNew,"2DHeatEquation.dat");
 

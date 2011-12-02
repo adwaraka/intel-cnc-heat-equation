@@ -43,7 +43,7 @@ class cnc_tag_hash_compare< MatrixKey > {
 
 std::ostream & cnc_format( std::ostream& os, const MatrixKey &m )
 {
-	return os <<m.x << "," << m.y << "," << m.time;
+	return os << m.x << "," << m.y << "," << m.time;
 }
 
 
@@ -64,19 +64,18 @@ struct ProblemInfo {
 
 // LIST OF FUNCTIONS
 bool processUserInput(ProblemInfo &theProblemInfo);
-void saveToFile(ProblemInfo theProblemInfo, heat_matrix_context & c, char* theFileName);
+//void saveToFile(ProblemInfo theProblemInfo, heat_matrix_context & c, char* theFileName);
 
 
 // COMPUTE FUNCTION
 int compute_heat::execute(const MatrixKey & t, heat_matrix_context & c ) const
 {
-	int row, col, time_key;
+	int row, col;
+	int time_key;
 
-	MatrixKey mat( row, col, time_key );
 	row=t.x;
 	col=t.y;
 	time_key=t.time;
-
 
 	// For each input item for this step retrieve the item using the proper tag value
 	float prev_temp_val,
@@ -85,24 +84,37 @@ int compute_heat::execute(const MatrixKey & t, heat_matrix_context & c ) const
 	    prev_temp_val_t,
 	    prev_temp_val_b;
 
+	float value;	
+
         // get the neighbouring data
 	c.matrix_value.get(MatrixKey(row,col,time_key), prev_temp_val);
-   	c.matrix_value.get(MatrixKey(row-1,col,time_key), prev_temp_val_l);
-	c.matrix_value.get(MatrixKey(row+1,col,time_key), prev_temp_val_r);
-	c.matrix_value.get(MatrixKey(row,col-1,time_key), prev_temp_val_b);
-	c.matrix_value.get(MatrixKey(row,col+1,time_key), prev_temp_val_t);
+   	c.matrix_value.get(MatrixKey(row-1,col,time_key), prev_temp_val_t);
+	c.matrix_value.get(MatrixKey(row+1,col,time_key), prev_temp_val_b);
+	c.matrix_value.get(MatrixKey(row,col-1,time_key), prev_temp_val_l);
+	c.matrix_value.get(MatrixKey(row,col+1,time_key), prev_temp_val_r);
 
-		
-	// printf("Computing for time %d\n",time_key);
+	/*
+	printf("Value Current : %f\n", prev_temp_val);		
+        printf("Values Left   : %f\n", prev_temp_val_l);
+        printf("Values Right  : %f\n", prev_temp_val_r);
+        printf("Values Bottom : %f\n", prev_temp_val_b);
+        printf("Values Top    : %f\n", prev_temp_val_t);*/
+	printf("Computing for row, column and time's current values - %d, %d, %d \n", row, col, time_key);
+	printf("Current Value - %f \n", prev_temp_val);
 
+        MatrixKey mat(row, col, t.time+1);
 	// Step implementation logic goes here	
 	// For each output item for this step, put the new item using the proper tag value   
 	// sum all the neighbouring ones with the concerned pixel
+	// printf("Next time value: %d\n", mat.time);
 
-	c.matrix_value.put(MatrixKey(row, col, time_key+1), 
-		float(prev_temp_val + 0.20*(prev_temp_val_l + prev_temp_val_r - 4*prev_temp_val + prev_temp_val_t + prev_temp_val_b)));
+	printf("Computing for row, column and time - %d, %d, %d \n", mat.x, mat.y, mat.time);
+	c.matrix_value.put(mat, float(prev_temp_val + 0.20*(prev_temp_val_l + prev_temp_val_r - 4*prev_temp_val + prev_temp_val_t + prev_temp_val_b)));
+        c.matrix_value.get(mat, value);
+	printf("New Value -  %f\n",value);
 
 	return CnC::CNC_Success;
+
 }
 
 
@@ -120,24 +132,24 @@ int main(int argc, char* argv[]) {
 
 	int i;
 	int j;
-	int t;
+	int t = 0;
 
 	ProblemInfo probInfo;
 	double CFL;	
 
 	if (!processUserInput(probInfo)) return 0; //finish the code
 
-	nNodesX = probInfo.numberOfNodesX;
-	nNodesY = probInfo.numberOfNodesY;	
-	dx =(double) 1.0/probInfo.numberOfNodesX;
-	dy =(double) 1.0/probInfo.numberOfNodesY;
-	dx2 = dx*dx;
-	dy2 = dy*dy;
+	// nNodesX = probInfo.numberOfNodesX;
+	// nNodesY = probInfo.numberOfNodesY;	
+	// dx =(double) 1.0/probInfo.numberOfNodesX;
+	// dy =(double) 1.0/probInfo.numberOfNodesY;
+	// dx2 = dx*dx;
+	// dy2 = dy*dy;
 
-	CFL = 0.20;
-	deltaT = CFL*(dx2*dy2)/((dx2+dy2)*0.0008418);
+	// CFL = 0.20;
+	// deltaT = CFL*(dx2*dy2)/((dx2+dy2)*0.0008418);
 
-	printf("Initialize the temperatures\n");
+	// printf("Initialize the temperatures\n");
 
     	// Put initial temperatures of 47.00 Degrees Celsius at the center
     	for (i = 1; i < nNodesX-1; i++) {
@@ -149,13 +161,13 @@ int main(int argc, char* argv[]) {
 	printf("Initialize the boundary conditions\n");
 
 	for (i = 0; i < nNodesX; i++) {
-		c.matrix_value.put(MatrixKey(i,0,0), 27.00);	//bottom BC
-		c.matrix_value.put(MatrixKey(i,nNodesY-1,0), float(27.00));	//top BC
+		c.matrix_value.put(MatrixKey(i,0,0), 27.00);	//left BC
+		c.matrix_value.put(MatrixKey(i,nNodesY-1,0), float(27.00));	//right BC
 	}
 
 	for (j = 0; j < nNodesY; j++) {
-		c.matrix_value.put(MatrixKey(0,j,0), 27.00);	//left BC
-		c.matrix_value.put(MatrixKey(nNodesX-1,j,0), float(27.00));	//right BC
+		c.matrix_value.put(MatrixKey(0,j,0), 27.00);	//top BC
+		c.matrix_value.put(MatrixKey(nNodesX-1,j,0), float(27.00));	//left BC
 	}
 
 
@@ -163,25 +175,23 @@ int main(int argc, char* argv[]) {
         // for (...)
     	for (i = 1; i < nNodesX-1; i++) {
             for (j = 1; j < nNodesY-1; j++) {
-		for(t = 0; t <= 169; t++)  {
-			c.position.put(MatrixKey(i,j,t));
+	        for (t = 0; t <= 169 ; t++) {
+			c.position.put(MatrixKey(i,j,t)); 
 		}
 	    }
 	}
 
-	printf("Done initializing.... \n");
+	// printf("Done initializing.... \n");
 
 	// compute each step till end of simulation
 	// int iter = 0;
 	// while(iter++*deltaT <= double(2.0)) {
 	// }
-
-
 	c.wait();
 
 	// writing to file
-	printf("Writing to the file\n");
-	saveToFile(probInfo, c,"2DHeatEquation_parallel.dat");
+	// printf("Writing to the file\n");
+	// saveToFile(probInfo, c,"2DHeatEquation_parallel.dat");
 
 }
 //main ends
@@ -200,6 +210,7 @@ bool processUserInput(ProblemInfo &theProblemInfo) {
 	return 1;
 }
 
+/*
 void saveToFile(ProblemInfo theProblemInfo, heat_matrix_context & c, char* theFileName) {
 	int nNodesX = theProblemInfo.numberOfNodesX;
 	int nNodesY = theProblemInfo.numberOfNodesY;
@@ -209,10 +220,10 @@ void saveToFile(ProblemInfo theProblemInfo, heat_matrix_context & c, char* theFi
 	theDataFile = fopen(theFileName,"w");
 	for (int ix = 0; ix < nNodesX; ix++) {
 		for (int jy = 0; jy < nNodesY; jy++){
-			c.matrix_value.get(MatrixKey(ix, jy, 169), value);
+			c.matrix_value.get(MatrixKey(ix, jy, 1), value);
 			fprintf(theDataFile,"%lf",value);			
 		}
 		fprintf(theDataFile,"\n");
 	}
 	fclose(theDataFile);
-}
+}*/
