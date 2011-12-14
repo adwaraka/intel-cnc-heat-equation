@@ -1,0 +1,117 @@
+4 and 4 matrix
+
+Initialize the boundary conditions
+Computing for row, column and time's current values - 1, 1, 0 
+Current Values : 47.000000
+Computing for row, column and time - 1, 1, 1 
+New Value : 39.000000
+Get item [matrix_value: 2,2,9]  ( not ready )
+Get item [matrix_value: 1,1,1] -> 39
+Get item [matrix_value: 0,1,1] -> 27
+Get item [matrix_value: 2,1,1]  ( not ready )
+Get item [matrix_value: 2,2,8]  ( not ready )
+Get item [matrix_value: 1,1,2]  ( not ready )
+Get item [matrix_value: 2,2,7]  ( not ready )
+Get item [matrix_value: 1,1,3]  ( not ready )
+Get item [matrix_value: 2,2,6]  ( not ready )
+Get item [matrix_value: 1,1,4]  ( not ready )
+Get item [matrix_value: 2,2,5]  ( not ready )
+Get item [matrix_value: 1,1,5]  ( not ready )
+Get item [matrix_value: 2,2,4]  ( not ready )
+Get item [matrix_value: 1,1,6]  ( not ready )
+Get item [matrix_value: 2,2,3]  ( not ready )
+Get item [matrix_value: 1,1,7]  ( not ready )
+Get item [matrix_value: 2,2,2]  ( not ready )
+Get item [matrix_value: 1,1,8]  ( not ready )
+Get item [matrix_value: 2,2,1]  ( not ready )
+Get item [matrix_value: 1,1,9]  ( not ready )
+Get item [matrix_value: 2,2,0] -> 47
+Get item [matrix_value: 1,1,10]  ( not ready )
+Get item [matrix_value: 1,2,0] -> 47
+Get item [matrix_value: 3,2,0] -> 27
+Get item [matrix_value: 2,1,0] -> 47
+Get item [matrix_value: 1,2,0] -> 47
+Get item [matrix_value: 2,3,0] -> 27
+Computing for row, column and time's current values - 2, 2, 0 
+Current Values : 47.000000
+Computing for row, column and time - 2, 2, 1 
+Get item [matrix_value: 0,2,0] -> 27
+Put item [matrix_value: 2,2,1] -> 39
+Get item [matrix_value: 2,2,0] -> 47
+Get item [matrix_value: 2,2,1] -> 39
+New Value : 39.000000
+Get item [matrix_value: 1,1,0] -> 47
+Get item [matrix_value: 2,2,1] -> 39
+Get item [matrix_value: 1,3,0] -> 27
+Computing for row, column and time's current values - 1, 2, 0 
+Current Values : 47.000000
+Computing for row, column and time - 1, 2, 1 
+Get item [matrix_value: 1,2,1]  ( not ready )
+Put item [matrix_value: 1,2,1] -> 39
+Get item [matrix_value: 1,2,1] -> 39
+New Value : 39.000000
+Get item [matrix_value: 3,2,1]  ( not ready )
+Get item [matrix_value: 1,2,1] -> 39
+Get item [matrix_value: 0,2,1] -> 27
+Get item [matrix_value: 2,2,1] -> 39
+Get item [matrix_value: 2,1,10]  ( not ready )
+Get item [matrix_value: 1,1,1] -> 39
+Get item [matrix_value: 1,3,1]  ( not ready )
+Get item [matrix_value: 2,1,9]  ( not ready )
+Get item [matrix_value: 1,2,2]  ( not ready )
+Get item [matrix_value: 2,1,8]  ( not ready )
+Get item [matrix_value: 1,2,3]  ( not ready )
+Get item [matrix_value: 2,1,7]  ( not ready )
+Get item [matrix_value: 1,2,4]  ( not ready )
+Get item [matrix_value: 2,1,6]  ( not ready )
+Get item [matrix_value: 1,2,5]  ( not ready )
+Get item [matrix_value: 2,1,5]  ( not ready )
+Get item [matrix_value: 1,2,6]  ( not ready )
+Get item [matrix_value: 2,1,4]  ( not ready )
+Get item [matrix_value: 2,1,3]  ( not ready )
+Get item [matrix_value: 2,1,2]  ( not ready )
+Get item [matrix_value: 2,1,1]  ( not ready )
+Get item [matrix_value: 2,1,0] -> 47
+Get item [matrix_value: 1,1,0] -> 47
+Get item [matrix_value: 3,1,0] -> 27
+Get item [matrix_value: 2,0,0] -> 27
+Get item [matrix_value: 2,2,0] -> 47
+Computing for row, column and time's current values - 2, 1, 0 
+Current Values : 47.000000
+Computing for row, column and time - 2, 1, 1 
+Put item [matrix_value: 2,1,1] -> 39
+Get item [matrix_value: 2,1,1] -> 39
+New Value : 39.000000
+Get item [matrix_value: 2,1,1] -> 39
+Get item [matrix_value: 1,1,1] -> 39
+Get item [matrix_value: 3,1,1]  ( not ready )
+Get item [matrix_value: 1,1,1] -> 39
+Get item [matrix_value: 0,1,1] -> 27
+Get item [matrix_value: 2,1,1] -> 39
+Get item [matrix_value: 1,0,1] -> 27
+Get item [matrix_value: 1,2,1] -> 39
+Computing for row, column and time's current values - 1, 1, 1 
+Current Values : 39.000000
+Computing for row, column and time - 1, 1, 2 
+Put item [matrix_value: 1,1,2] -> 34.2
+Get item [matrix_value: 1,1,2] -> 34.2
+New Value : 34.200001
+Get item [matrix_value: 1,1,2] -> 34.2
+Get item [matrix_value: 0,1,2] -> 27
+Get item [matrix_value: 2,1,2]  ( not ready )
+Put item [matrix_value: 2,0,11] -> 27
+Put item [matrix_value: 2,0,10] -> 27
+Put item [matrix_value: 2,0,9] -> 27
+Put item [matrix_value: 2,0,8] -> 27
+Put item [matrix_value: 2,0,7] -> 27
+Put item [matrix_value: 2,0,6] -> 27
+Put item [matrix_value: 2,0,5] -> 27
+Put item [matrix_value: 2,0,4] -> 27
+Put item [matrix_value: 2,0,3] -> 27
+Put item [matrix_value: 2,0,2] -> 27
+Put item [matrix_value: 2,0,1] -> 27
+Get item [matrix_value: 1,2,10]  ( not ready )
+Get item [matrix_value: 1,2,9]  ( not ready )
+Get item [matrix_value: 1,2,8]  ( not ready )
+Get item [matrix_value: 1,2,7]  ( not ready )
+
